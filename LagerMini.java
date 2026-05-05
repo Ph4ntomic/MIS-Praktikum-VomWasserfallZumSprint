@@ -1,6 +1,3 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class LagerMini {
@@ -25,6 +22,11 @@ public class LagerMini {
             }
 
             if (choice == 1) {
+                if (count >= 10) {
+                    System.out.println("Error: Storage is full.");
+                    continue;
+                }
+
                 System.out.print("ID: ");
                 id[count] = sc.nextLine();
 
@@ -47,11 +49,11 @@ public class LagerMini {
             if (choice == 2) {
                 for (int i = 0; i < count; i++) {
                     System.out.println(
-                        i + " | ID: " + id[i]
-                        + " | Name: " + name[i]
-                        + " | Quantity: " + quantity[i]
-                        + " | Minimum: " + minimum[i]
-                        + " | Price: " + price[i]
+                            i + " | ID: " + id[i]
+                                    + " | Name: " + name[i]
+                                    + " | Quantity: " + quantity[i]
+                                    + " | Minimum: " + minimum[i]
+                                    + " | Price: " + price[i]
                     );
                 }
             }
@@ -85,48 +87,11 @@ public class LagerMini {
             }
 
             if (choice == 5) {
-                exportJson(id, name, quantity, minimum, price, count);
+                ExportJson.exportJson(id, name, quantity, minimum, price, count);
             }
         }
 
         sc.close();
         System.out.println("Program ended.");
-    }
-
-    public static void exportJson(
-            String[] id,
-            String[] name,
-            int[] quantity,
-            int[] minimum,
-            double[] price,
-            int count
-    ) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter("warehouse.json"))) {
-
-            writer.println("[");
-
-            for (int i = 0; i < count; i++) {
-                writer.println("  {");
-                writer.println("    \"id\": \"" + id[i] + "\",");
-                writer.println("    \"name\": \"" + name[i] + "\",");
-                writer.println("    \"quantity\": " + quantity[i] + ",");
-                writer.println("    \"minimum\": " + minimum[i] + ",");
-                writer.println("    \"price\": " + price[i]);
-                writer.print("  }");
-
-                if (i < count - 1) {
-                    writer.println(",");
-                } else {
-                    writer.println();
-                }
-            }
-
-            writer.println("]");
-
-            System.out.println("JSON export completed: warehouse.json");
-
-        } catch (IOException e) {
-            System.out.println("Error while exporting JSON.");
-        }
     }
 }
