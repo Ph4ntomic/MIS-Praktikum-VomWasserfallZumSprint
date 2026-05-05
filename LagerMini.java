@@ -4,69 +4,84 @@ public class LagerMini {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        String[] id = new String[10];
         String[] name = new String[10];
-        int[] bestand = new int[10];
+        int[] quantity = new int[10];
         int[] minimum = new int[10];
-        int anzahl = 0;
+        double[] price = new double[10];
+
+        int count = 0;
 
         while (true) {
-            System.out.println("\n1 Anlegen | 2 Anzeigen | 3 Plus | 4 Minus | 0 Ende");
-            int wahl = sc.nextInt();
+            System.out.println("\n1 Add | 2 Show | 3 Plus | 4 Minus | 0 Exit");
+            int choice = sc.nextInt();
             sc.nextLine();
 
-            if (wahl == 0) {
+            if (choice == 0) {
                 break;
             }
 
-            if (wahl == 1) {
-                System.out.print("Name: ");
-                name[anzahl] = sc.nextLine();
+            if (choice == 1) {
+                System.out.print("ID: ");
+                id[count] = sc.nextLine();
 
-                System.out.print("Bestand: ");
-                bestand[anzahl] = sc.nextInt();
+                System.out.print("Name: ");
+                name[count] = sc.nextLine();
+
+                System.out.print("Quantity: ");
+                quantity[count] = sc.nextInt();
 
                 System.out.print("Minimum: ");
-                minimum[anzahl] = sc.nextInt();
+                minimum[count] = sc.nextInt();
 
-                anzahl++;
+                System.out.print("Price: ");
+                price[count] = sc.nextDouble();
+                sc.nextLine();
+
+                count++;
             }
 
-            if (wahl == 2) {
-                for (int i = 0; i < anzahl; i++) {
-                    System.out.println(i + " " + name[i] + " Bestand: " + bestand[i]);
+            if (choice == 2) {
+                for (int i = 0; i < count; i++) {
+                    System.out.println(
+                        i + " | ID: " + id[i]
+                        + " | Name: " + name[i]
+                        + " | Quantity: " + quantity[i]
+                        + " | Price: " + price[i]
+                    );
                 }
             }
 
-            if (wahl == 3) {
-                System.out.print("Artikelnummer: ");
-                int nr = sc.nextInt();
+            if (choice == 3) {
+                System.out.print("Item number: ");
+                int number = sc.nextInt();
 
-                System.out.print("Menge: ");
-                int menge = sc.nextInt();
+                System.out.print("Amount: ");
+                int amount = sc.nextInt();
 
-                bestand[nr] = bestand[nr] + menge;
+                quantity[number] = quantity[number] + amount;
             }
 
-            if (wahl == 4) {
-                System.out.print("Artikelnummer: ");
-                int nr = sc.nextInt();
+            if (choice == 4) {
+                System.out.print("Item number: ");
+                int number = sc.nextInt();
 
-                System.out.print("Menge: ");
-                int menge = sc.nextInt();
+                System.out.print("Amount: ");
+                int amount = sc.nextInt();
 
-                if (bestand[nr] - menge < 0) {
-                    System.out.println("Fehler: Bestand darf nicht negativ werden.");
+                if (quantity[number] - amount < 0) {
+                    System.out.println("Error: Quantity cannot be negative.");
                 } else {
-                    bestand[nr] = bestand[nr] - menge;
+                    quantity[number] = quantity[number] - amount;
 
-                    if (bestand[nr] < minimum[nr]) {
-                        System.out.println("Warnung: Mindestbestand unterschritten.");
+                    if (quantity[number] < minimum[number]) {
+                        System.out.println("Warning: Minimum quantity reached.");
                     }
                 }
             }
         }
 
         sc.close();
-        System.out.println("Programm beendet.");
+        System.out.println("Program ended.");
     }
 }
