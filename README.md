@@ -34,8 +34,17 @@ java LagerMini
 Nach dem Start erscheint dieses Menü:
 
 ```text
-1 Anlegen | 2 Anzeigen | 3 Plus | 4 Minus | 0 Ende
+1 Add | 2 Show | 3 Plus | 4 Minus | 0 Exit
 ```
+
+## Wichtiger Bedienhinweis
+
+```text
+Erst 1 Add benutzen.
+Dann 2 Show benutzen.
+```
+
+Wenn noch kein Artikel angelegt wurde, kann bei `2 Show` noch kein Artikel angezeigt werden.
 
 ## Menüfunktionen
 
@@ -51,39 +60,47 @@ Nach dem Start erscheint dieses Menü:
 
 ```text
 1
+ID: A001
 Name: Schrauben
-Bestand: 50
+Quantity: 50
 Minimum: 10
+Price: 2.99
 
 2
-0 Schrauben Bestand: 50
+0 | ID: A001 | Name: Schrauben | Quantity: 50 | Price: 2.99
 
 3
-Artikelnummer: 0
-Menge: 20
+Item number: 0
+Amount: 20
 
 2
-0 Schrauben Bestand: 70
+0 | ID: A001 | Name: Schrauben | Quantity: 70 | Price: 2.99
 
 4
-Artikelnummer: 0
-Menge: 65
+Item number: 0
+Amount: 65
 
-Warnung: Mindestbestand unterschritten.
+Warning: Minimum quantity reached.
 ```
 
 ## Aufbau des Codes
 
-Das Programm nutzt drei Arrays.
+Das Programm nutzt mehrere Arrays.
+
+```java
+String[] id
+```
+
+Speichert die Artikel-ID.
 
 ```java
 String[] name
 ```
 
-Speichert die Artikelnamen.
+Speichert den Artikelnamen.
 
 ```java
-int[] bestand
+int[] quantity
 ```
 
 Speichert die aktuelle Menge der Artikel.
@@ -94,7 +111,13 @@ int[] minimum
 
 Speichert den Mindestbestand der Artikel.
 
-Die Variable `anzahl` zählt, wie viele Artikel bereits angelegt wurden.
+```java
+double[] price
+```
+
+Speichert den Preis der Artikel.
+
+Die Variable `count` zählt, wie viele Artikel bereits angelegt wurden.
 
 ## Bezug zum Wasserfallmodell
 
@@ -104,11 +127,12 @@ Umgesetzte Funktionen:
 
 | Funktion | Beschreibung |
 |---|---|
-| Artikel anlegen | Ein neuer Artikel wird mit Name, Bestand und Mindestbestand gespeichert. |
+| Artikel anlegen | Ein neuer Artikel wird mit ID, Name, Menge, Mindestbestand und Preis gespeichert. |
 | Artikel anzeigen | Alle gespeicherten Artikel werden in der Konsole angezeigt. |
 | Bestand erhöhen | Der Bestand eines Artikels wird erhöht. |
 | Bestand verringern | Der Bestand eines Artikels wird verringert. |
 | Negativen Bestand verhindern | Es wird geprüft, ob genug Bestand vorhanden ist. |
+| Mindestbestand prüfen | Bei zu niedrigem Bestand erscheint eine Warnung. |
 
 Während der Entwicklung werden keine neuen Anforderungen aufgenommen.
 
@@ -120,11 +144,11 @@ Mögliche Erweiterungen:
 
 | Erweiterung | Nutzen |
 |---|---|
-| Mindestbestand prüfen | Das System warnt bei zu niedrigem Bestand. |
 | Artikelsuche | Artikel können schneller gefunden werden. |
 | Artikel löschen | Falsch angelegte Artikel können entfernt werden. |
 | Datei-Export | Lagerdaten können gespeichert werden. |
 | bessere Fehlerbehandlung | Falsche Eingaben führen nicht direkt zu Programmfehlern. |
+| dauerhafte Speicherung | Artikel bleiben nach Programmende erhalten. |
 
 ## Grenzen des Programms
 
